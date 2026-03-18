@@ -24,10 +24,8 @@ class Chart extends BaseChart
     public function __construct()
     {
         parent::__construct();
-
         $this->container = 'charts::highcharts.container';
         $this->script = 'charts::highcharts.script';
-
         return $this->options([
             'credits' => [
                 'enabled' => false,
@@ -45,7 +43,7 @@ class Chart extends BaseChart
      */
     public function formatOptions(bool $strict = false, bool $noBraces = false)
     {
-        if (count($this->labels) > 0) {
+        if ((is_array($this->labels) || $this->labels instanceof \Countable) && count($this->labels) > 0) {
             $this->options([
                 'xAxis' => [
                     'categories' => json_decode($this->formatLabels()),
